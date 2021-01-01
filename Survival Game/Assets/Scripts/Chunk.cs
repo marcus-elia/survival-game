@@ -15,6 +15,8 @@ public class Chunk : MonoBehaviour
     public GameObject treePrefab;
     private VoxelTree tree;
 
+    public static float treeProbability = 0.33f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,13 +31,19 @@ public class Chunk : MonoBehaviour
     public void EnableChunk()
     {
         ground.SetActive(true);
-        tree.Enable();
+        if(tree)
+        {
+            tree.Enable();
+        }
     }
 
     public void DisableChunk()
     {
         ground.SetActive(false);
-        tree.Disable();
+        if(tree)
+        {
+            tree.Disable();
+        }
     }
 
     // Setters
@@ -57,8 +65,13 @@ public class Chunk : MonoBehaviour
     }
     public void CreateTree()
     {
+        if(Random.Range(0,100) < treeProbability*100)
+        {
+            return;
+        }
         tree = Instantiate(treePrefab).GetComponent<VoxelTree>();
-        tree.SetPosition(transform.position);
+        Vector3 randomPoint = getRandomPoint(sideLength / 5f);
+        tree.SetPosition(randomPoint);
         tree.Generate();
     }
 

@@ -18,7 +18,7 @@ public struct Point2D
 
 public class ChunkManager : MonoBehaviour
 {
-    public static int chunkSize = 10;
+    public static int chunkSize = 20;
     public Transform playerTransform;
     private int currentPlayerChunkID;
     public int renderRadius = 2;
