@@ -97,9 +97,10 @@ public class ChunkManager : MonoBehaviour
             {
                 // Make the new Chunk
                 GameObject c = Instantiate(ChunkPrefab);
-                c.GetComponent<Chunk>().setChunkID(id);
-                c.GetComponent<Chunk>().setSideLength(chunkSize);
+                c.GetComponent<Chunk>().SetChunkID(id);
+                c.GetComponent<Chunk>().SetSideLength(chunkSize);
                 c.GetComponent<Chunk>().InitializeGround();
+                c.GetComponent<Chunk>().CreateTree();
                 c.GetComponent<Chunk>().EnableChunk();
                 allSeenChunks.Add(id, c);
                 currentChunks.Add(c);

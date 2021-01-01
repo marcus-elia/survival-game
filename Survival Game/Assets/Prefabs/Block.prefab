@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6459585309321285265
+--- !u!1 &939968046189176984
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6459585309321285266}
-  - component: {fileID: 239063768390682312}
+  - component: {fileID: 298379819953948417}
+  - component: {fileID: 8998492624981285223}
   m_Layer: 0
-  m_Name: Chunk
+  m_Name: Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6459585309321285266
+--- !u!4 &298379819953948417
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6459585309321285265}
+  m_GameObject: {fileID: 939968046189176984}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,19 +31,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &239063768390682312
+--- !u!114 &8998492624981285223
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6459585309321285265}
+  m_GameObject: {fileID: 939968046189176984}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e630203ef963474b80212677554450c, type: 3}
+  m_Script: {fileID: 11500000, guid: 909150b6a8f318640b2546fce89719af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundPrefab: {fileID: 4563285708354708846, guid: 57b7b94b49ad6784a867a2c585c8478b,
+  woodBlockPrefab: {fileID: 1137215729657775971, guid: b34c7818d78bd8f41b4a336ffefa5798,
     type: 3}
-  treePrefab: {fileID: 5896237845529871507, guid: 53de55b581709624a8adcb88995c55ab,
+  leafBlockPrefab: {fileID: 6287414671996132987, guid: 60b87e5fe7a40794cb511bec0bf267a9,
     type: 3}
+  genericBlock: {fileID: 939968046189176984}

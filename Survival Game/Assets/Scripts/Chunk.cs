@@ -12,6 +12,9 @@ public class Chunk : MonoBehaviour
     public GameObject groundPrefab;
     private GameObject ground;
 
+    public GameObject treePrefab;
+    private VoxelTree tree;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,11 +29,13 @@ public class Chunk : MonoBehaviour
     public void EnableChunk()
     {
         ground.SetActive(true);
+        tree.Enable();
     }
 
     public void DisableChunk()
     {
         ground.SetActive(false);
+        tree.Disable();
     }
 
     // Setters
@@ -40,15 +45,21 @@ public class Chunk : MonoBehaviour
         ground.transform.position = transform.position;
         ground.transform.localScale = new Vector3(sideLength/10f, 1f, sideLength/10f);
     }
-    public void setChunkID(int inputID)
+    public void SetChunkID(int inputID)
     {
         chunkID = inputID;
         chunkCoords = ChunkManager.chunkIDtoPoint2D(chunkID);
     }
-    public void setSideLength(int inputSideLength)
+    public void SetSideLength(int inputSideLength)
     {
         sideLength = inputSideLength;
         transform.position = new Vector3(sideLength * chunkCoords.x + sideLength / 2.0f, 0f, sideLength * chunkCoords.z + sideLength / 2.0f);
+    }
+    public void CreateTree()
+    {
+        tree = Instantiate(treePrefab).GetComponent<VoxelTree>();
+        tree.SetPosition(transform.position);
+        tree.Generate();
     }
 
     // Returns a random point on the plane of this chunk, that is not within buffer of the border
