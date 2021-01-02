@@ -13,6 +13,8 @@ public class Block : MonoBehaviour
     private GameObject physicalBlock;
     public static float blockPrefabSize = 1f;
 
+    public GameObject projectile;
+
     private float size;
 
     private BlockType blockType;
@@ -98,14 +100,16 @@ public class Block : MonoBehaviour
     }
     public void Destroy()
     {
-        if(parent)
-        {
-            parent.RemoveChild(this);
-        }
-        Destroy(physicalBlock);
         for(int i = 0; i < children.Count; i++)
         {
             children[i].Destroy();
         }
+        GameObject proj = Instantiate(projectile);
+        proj.transform.position = transform.position;
+        ProjectileManager.AddProjectile(proj);
+
+        Destroy(physicalBlock);
+        Destroy(gameObject);
+
     }
 }

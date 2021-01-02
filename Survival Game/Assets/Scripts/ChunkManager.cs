@@ -100,6 +100,7 @@ public class ChunkManager : MonoBehaviour
                 c.GetComponent<Chunk>().SetChunkID(id);
                 c.GetComponent<Chunk>().SetSideLength(chunkSize);
                 c.GetComponent<Chunk>().InitializeGround();
+                c.GetComponent<Chunk>().SetPlayerTransform(playerTransform);
                 c.GetComponent<Chunk>().CreateTree();
                 c.GetComponent<Chunk>().EnableChunk();
                 allSeenChunks.Add(id, c);

@@ -11,6 +11,10 @@ public class VoxelTree : MonoBehaviour
 
     public GameObject genericBlock;
 
+    private Transform playerTransform;
+
+    public float playerRadius = 0.6f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,12 +24,23 @@ public class VoxelTree : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Vector3.Distance(transform.position, playerTransform.position) < blockSize + playerRadius)
+        {
+            if(treeBase)
+            {
+                treeBase.Destroy();
+                Destroy(this.gameObject);
+            }
+        }
     }
 
     public void SetPosition(Vector3 inputPosition)
     {
         transform.position = inputPosition;
+    }
+    public void SetPlayerTransform(Transform input)
+    {
+        playerTransform = input;
     }
     public void Generate()
     {
