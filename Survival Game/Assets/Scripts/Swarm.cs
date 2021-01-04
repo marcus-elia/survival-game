@@ -55,6 +55,7 @@ public class Swarm : MonoBehaviour
             enemy.SetOffset(offsetAverage, offsetRadius);
             enemy.ComputeCoefficient();
             enemy.SetInitialPosition();
+            enemy.SetPlayerTransform(playerTransform);
         }
     }
 }

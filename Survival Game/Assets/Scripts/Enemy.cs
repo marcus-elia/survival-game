@@ -14,6 +14,13 @@ public class Enemy : MonoBehaviour
     private Vector3 location;
 
     private int frameNumber = 0;
+    public int framesPerReduction = 50;
+    public float scaleFactor = 0.9f;
+
+    public float physicalRadius = 0.5f;
+    public LayerMask projectileMask;
+
+    private Transform playerTransform;
 
     // Start is called before the first frame update
     void Start()
@@ -24,8 +31,19 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Move
         frameNumber++;
         transform.localPosition = ComputePosition(frameNumber);
+
+        // If this got hit by a projectile, destroy it
+        CheckProjectiles();
+
+        if(frameNumber % framesPerReduction == 0)
+        {
+            Reduce(scaleFactor);
+        }
+
+        transform.LookAt(playerTransform);
     }
 
     public Vector3 MakeRandomVector(float average, float radius)
@@ -52,7 +70,10 @@ public class Enemy : MonoBehaviour
     {
         transform.localPosition = ComputePosition(0);
     }
-
+    public void SetPlayerTransform(Transform input)
+    {
+        playerTransform = input;
+    }
 
     public static Vector3 MultiplyVectors(Vector3 a, Vector3 b)
     {
@@ -66,6 +87,20 @@ public class Enemy : MonoBehaviour
     private Vector3 ComputePosition(int t)
     {
         return MultiplyVectors(amplitude, VectorSine(t * coefficient + offset));
+    }
+
+    private void CheckProjectiles()
+    {
+        if(Physics.CheckSphere(transform.position, physicalRadius, projectileMask))
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    // Reduce the amplitude
+    public void Reduce(float scaleFactor)
+    {
+        amplitude *= scaleFactor;
     }
 
 }
