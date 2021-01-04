@@ -8,7 +8,8 @@ public class Swarm : MonoBehaviour
     private float speed;
 
     public GameObject enemyPrefab;
-    public int numEnemies = 5;
+    public int minNumEnemies = 4;
+    public int maxNumEnemies = 10;
     public float amplitudeAverage = 5f;
     public float amplitudeRadius = 1.5f;
     public float frequencyAverage = 0.25f;
@@ -45,6 +46,7 @@ public class Swarm : MonoBehaviour
     }
     public void SpawnEnemies()
     {
+        int numEnemies = Random.Range(minNumEnemies, maxNumEnemies);
         for(int i = 0; i < numEnemies; i++)
         {
             GameObject newEnemy = Instantiate(enemyPrefab);

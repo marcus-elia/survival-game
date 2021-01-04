@@ -48,7 +48,7 @@ MonoBehaviour:
   numEnemies: 5
   amplitudeAverage: 5
   amplitudeRadius: 1.5
-  frequencyAverage: 0.01
-  frequencyRadius: 0.005
+  frequencyAverage: 0.005
+  frequencyRadius: 0.0025
   offsetAverage: 3.1415927
   offsetRadius: 3.1415927
