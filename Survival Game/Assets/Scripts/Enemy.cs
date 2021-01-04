@@ -44,6 +44,11 @@ public class Enemy : MonoBehaviour
         }
 
         transform.LookAt(playerTransform);
+
+        if(Vector3.Distance(transform.position, playerTransform.position) < 3)
+        {
+            HealthManager.health--;
+        }
     }
 
     public Vector3 MakeRandomVector(float average, float radius)

@@ -23,10 +23,10 @@ public class HealthManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Physics.CheckSphere(transform.position, playerRadius + enemyRadius, enemyLayer))
-        {
-            health--;
-        }
+        //if (Physics.CheckSphere(transform.position, playerRadius + enemyRadius, enemyLayer))
+        // {
+        //    health--;
+        //}
         healthBar.value = health;
     }
 
