@@ -48,5 +48,4 @@ MonoBehaviour:
   leafBlockPrefab: {fileID: 6287414671996132987, guid: 60b87e5fe7a40794cb511bec0bf267a9,
     type: 3}
   genericBlock: {fileID: 939968046189176984}
-  projectile: {fileID: 3539893318240697164, guid: d4ef1703ecdef8545801e59de644ecea,
-    type: 3}
+  projectile: {fileID: 1638444836145330, guid: 031f4f4b1f7d8b7489da0919e18ceac3, type: 3}
