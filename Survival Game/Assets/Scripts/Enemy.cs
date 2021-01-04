@@ -22,6 +22,8 @@ public class Enemy : MonoBehaviour
 
     private Transform playerTransform;
 
+    public GameObject pointPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -98,8 +100,15 @@ public class Enemy : MonoBehaviour
     {
         if(Physics.CheckSphere(transform.position, physicalRadius, projectileMask))
         {
+            SpawnPoint();
             Destroy(gameObject);
         }
+    }
+    private void SpawnPoint()
+    {
+        GameObject point = Instantiate(pointPrefab);
+        point.GetComponent<Point>().SetPlayerTransform(playerTransform);
+        point.transform.position = transform.position;
     }
 
     // Reduce the amplitude

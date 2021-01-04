@@ -144,6 +144,8 @@ MonoBehaviour:
   projectileMask:
     serializedVersion: 2
     m_Bits: 512
+  pointPrefab: {fileID: 4121994480404692931, guid: 6ea4f82c49ebca24da9bf5ead0454f25,
+    type: 3}
 --- !u!1001 &813851870254421147
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -161,7 +163,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4350637029938684, guid: 8a98dc7c3255b1f43b1885fecabf80f2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.7
       objectReference: {fileID: 0}
     - target: {fileID: 4350637029938684, guid: 8a98dc7c3255b1f43b1885fecabf80f2, type: 3}
       propertyPath: m_LocalPosition.z

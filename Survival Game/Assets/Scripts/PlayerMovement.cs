@@ -42,10 +42,10 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(move * speed * Time.deltaTime);
 
-        if (Input.GetKey(KeyCode.E))
-        {
-            controller.Move(move * 2 * speed * Time.deltaTime);
-        }
+        //if (Input.GetKey(KeyCode.E))
+        //{
+        //    controller.Move(move * 2 * speed * Time.deltaTime);
+        //}
 
         if(isGrounded && Input.GetButtonDown("Jump"))
         {
