@@ -23,7 +23,7 @@ public class Swarm : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(Vector3.Distance(transform.position, playerTransform.position) > speed)
         {
