@@ -394,10 +394,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swarmPrefab: {fileID: 4313155107494998871, guid: 29ef91f87d760464ca4de43fd7ef89ac,
     type: 3}
-  playerTransform: {fileID: 2127344456}
-  spawnRadius: 20
-  averageSpawnTime: 30
-  spawnIntervalWidth: 20
+  playerTransform: {fileID: 963194228}
+  spawnRadius: 30
+  averageSpawnTime: 20
+  spawnIntervalWidth: 10
   speed: 0.1
   spawnHeight: 20
 --- !u!4 &419699810
