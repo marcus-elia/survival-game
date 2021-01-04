@@ -106,7 +106,7 @@ public class Block : MonoBehaviour
         }
         GameObject proj = Instantiate(projectile);
         proj.transform.position = transform.position;
-        ProjectileManager.AddProjectile(proj);
+        ProjectileManager.AddDroppedProjectile(proj);
 
         Destroy(physicalBlock);
         Destroy(gameObject);

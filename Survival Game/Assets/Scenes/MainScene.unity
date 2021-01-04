@@ -1068,6 +1068,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 2127344456}
+  playerRadius: 0.6
+  cameraTransform: {fileID: 963194228}
+  throwingForce: 100
+  projPrefab: {fileID: 3539893318240697164, guid: d4ef1703ecdef8545801e59de644ecea,
+    type: 3}
   numProjText: {fileID: 1861100424}
 --- !u!4 &1616924136
 Transform:

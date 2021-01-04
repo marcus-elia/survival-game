@@ -6,14 +6,21 @@ using TMPro;
 public class ProjectileManager : MonoBehaviour
 {
     public static List<GameObject> droppedProjectiles = new List<GameObject>();
+    public static List<GameObject> thrownProjectiles = new List<GameObject>();
 
-    public static int maxNumProjectiles = 256;
+    public static int maxNumDroppedProjectiles = 256;
+    public static int maxNumThrownProjectiles = 128;
 
     public static int maxDistance = 300;
     public static int maxInventorySize = 256;
 
     public Transform playerTransform;
     public float playerRadius = 0.6f;
+    public Transform cameraTransform;
+
+    public float throwingForce = 10f;
+
+    public GameObject projPrefab;
 
     private static int numPlayerProjectiles = 0;
 
@@ -31,7 +38,7 @@ public class ProjectileManager : MonoBehaviour
 
         for(int i = 0; i < droppedProjectiles.Count; i++)
         {
-            if(DistanceXZ(droppedProjectiles[i].transform.position, playerTransform.position) < 2*playerRadius)
+            if(DistanceXZ(droppedProjectiles[i].transform.position, playerTransform.position) < 2 * playerRadius)
             {
                 AddProjectileToInventory();
                 Destroy(droppedProjectiles[i]);
@@ -39,12 +46,31 @@ public class ProjectileManager : MonoBehaviour
                 i--;
             }
         }
+
+        for(int i = 0; i < thrownProjectiles.Count; i++)
+        {
+            if(thrownProjectiles[i].transform.position.y < 1)
+            {
+                Destroy(thrownProjectiles[i]);
+                thrownProjectiles.RemoveAt(i);
+                i--;
+            }
+        }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            if(RemoveProjectileFromInventory())
+            {
+                Vector3 forceVector = cameraTransform.forward * throwingForce;
+                ThrowProjectile(forceVector);
+            }
+        }
     }
 
-    public static void AddProjectile(GameObject newProj)
+    public static void AddDroppedProjectile(GameObject newProj)
     {
         droppedProjectiles.Add(newProj);
-        if(droppedProjectiles.Count > maxNumProjectiles)
+        if(droppedProjectiles.Count > maxNumDroppedProjectiles)
         {
             Destroy(droppedProjectiles[0]);
             droppedProjectiles.RemoveAt(0);
@@ -71,8 +97,28 @@ public class ProjectileManager : MonoBehaviour
         return false;
     }
 
+    public void ThrowProjectile(Vector3 forceVector)
+    {
+        GameObject newProj = Instantiate(projPrefab);
+        newProj.transform.position = cameraTransform.position + cameraTransform.forward * playerRadius;
+        newProj.GetComponent<Rigidbody>().velocity = forceVector;
+        newProj.GetComponent<Rigidbody>().angularVelocity = RandomRotation();
+        Debug.Log(forceVector);
+        if (thrownProjectiles.Count > maxNumThrownProjectiles)
+        {
+            Destroy(thrownProjectiles[0]);
+            thrownProjectiles.RemoveAt(0);
+        }
+        thrownProjectiles.Add(newProj);
+    }
+
     public static float DistanceXZ(Vector3 a, Vector3 b)
     {
         return Mathf.Sqrt((a.x - b.x) * (a.x - b.x) + (a.z - b.z) * (a.z - b.z));
+    }
+
+    public static Vector3 RandomRotation()
+    {
+        return new Vector3(Random.Range(0, 5), Random.Range(0, 5), Random.Range(0, 5));
     }
 }
