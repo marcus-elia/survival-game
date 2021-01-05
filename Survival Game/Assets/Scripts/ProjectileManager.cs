@@ -19,6 +19,7 @@ public class ProjectileManager : MonoBehaviour
     public Transform cameraTransform;
 
     public float throwingForce = 10f;
+    public int burstSize = 20;
 
     public GameObject projPrefab;
 
@@ -36,9 +37,9 @@ public class ProjectileManager : MonoBehaviour
     {
         numProjText.text = numPlayerProjectiles.ToString();
 
-        for(int i = 0; i < droppedProjectiles.Count; i++)
+        for (int i = 0; i < droppedProjectiles.Count; i++)
         {
-            if(DistanceXZ(droppedProjectiles[i].transform.position, playerTransform.position) < 2 * playerRadius)
+            if (DistanceXZ(droppedProjectiles[i].transform.position, playerTransform.position) < 2 * playerRadius)
             {
                 AddProjectileToInventory();
                 Destroy(droppedProjectiles[i]);
@@ -47,9 +48,9 @@ public class ProjectileManager : MonoBehaviour
             }
         }
 
-        for(int i = 0; i < thrownProjectiles.Count; i++)
+        for (int i = 0; i < thrownProjectiles.Count; i++)
         {
-            if(thrownProjectiles[i].transform.position.y < 1)
+            if (thrownProjectiles[i].transform.position.y < 1)
             {
                 Destroy(thrownProjectiles[i]);
                 thrownProjectiles.RemoveAt(i);
@@ -57,16 +58,25 @@ public class ProjectileManager : MonoBehaviour
             }
         }
 
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            if(RemoveProjectileFromInventory())
+            if (RemoveProjectileFromInventory())
             {
                 Vector3 forceVector = cameraTransform.forward * throwingForce;
                 ThrowProjectile(forceVector);
             }
         }
-    }
 
+        else if (Input.GetMouseButtonDown(1))
+        {
+            if (numPlayerProjectiles > burstSize)
+            {
+                Vector3 forceVector = cameraTransform.forward * throwingForce;
+                ProjectileBurst(forceVector);
+                numPlayerProjectiles -= burstSize;
+            }
+        }
+    }
     public static void AddDroppedProjectile(GameObject newProj)
     {
         droppedProjectiles.Add(newProj);
@@ -109,6 +119,29 @@ public class ProjectileManager : MonoBehaviour
             thrownProjectiles.RemoveAt(0);
         }
         thrownProjectiles.Add(newProj);
+    }
+
+    public void ProjectileBurst(Vector3 forceVector)
+    {
+        float mag = forceVector.magnitude;
+        float theta = 0f;
+        float deltaTheta = Mathf.PI / burstSize;
+        for(int i = 0; i < 2*burstSize; i++)
+        {
+            theta += deltaTheta;
+            Vector3 velocity = new Vector3(mag * Mathf.Cos(theta), 0, mag * Mathf.Sin(theta));
+            velocity = Vector3.RotateTowards(velocity, Vector3.up, Mathf.PI / 6, 1);
+            GameObject newProj = Instantiate(projPrefab);
+            newProj.transform.position = cameraTransform.position + (velocity/mag) * playerRadius;
+            newProj.GetComponent<Rigidbody>().velocity = velocity;
+            newProj.GetComponent<Rigidbody>().angularVelocity = RandomRotation();
+            if (thrownProjectiles.Count > maxNumThrownProjectiles)
+            {
+                Destroy(thrownProjectiles[0]);
+                thrownProjectiles.RemoveAt(0);
+            }
+            thrownProjectiles.Add(newProj);
+        }
     }
 
     public static float DistanceXZ(Vector3 a, Vector3 b)
