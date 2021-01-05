@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-[RequireComponent(typeof(AudioSource))]
+//[RequireComponent(typeof(AudioSource))]
 public class Enemy : MonoBehaviour
 {
     // Moving sinusoidally relative to the swarm center in all 3 axes
@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
 
     public GameObject pointPrefab;
 
-    public AudioClip clip1;
+    /*public AudioClip clip1;
     public AudioClip clip2;
     public AudioClip clip3;
     public AudioClip clip4;
@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour
     private AudioSource audioSource;
 
     private int framesSinceLastSound = 0;
-    private int randomSoundWait = 1;
+    private int randomSoundWait = 1;*/
 
     // Start is called before the first frame update
     void Start()
@@ -65,13 +65,13 @@ public class Enemy : MonoBehaviour
             HealthManager.health--;
         }
 
-        framesSinceLastSound++;
+        /*framesSinceLastSound++;
         if(framesSinceLastSound == randomSoundWait)
         {
             framesSinceLastSound = 0;
             PlayRandomSound();
             ChooseRandomSoundWait();
-        }
+        }*/
     }
 
     public Vector3 MakeRandomVector(float average, float radius)
@@ -102,7 +102,7 @@ public class Enemy : MonoBehaviour
     {
         playerTransform = input;
     }
-    public void InitializeAudioClips(AudioManager audioManager)
+    /*public void InitializeAudioClips(AudioManager audioManager)
     {
         audioSource = GetComponent<AudioSource>();
         clip1 = audioManager.enemy1;
@@ -110,7 +110,7 @@ public class Enemy : MonoBehaviour
         clip3 = audioManager.enemy3;
         clip4 = audioManager.enemy4;
         clip5 = audioManager.enemy5;
-    }
+    }*/
 
     public static Vector3 MultiplyVectors(Vector3 a, Vector3 b)
     {
@@ -131,6 +131,7 @@ public class Enemy : MonoBehaviour
         if(Physics.CheckSphere(transform.position, physicalRadius, projectileMask))
         {
             SpawnPoint();
+            transform.parent.GetComponent<Swarm>().RemoveEnemy();
             Destroy(gameObject);
         }
     }
@@ -148,7 +149,7 @@ public class Enemy : MonoBehaviour
     }
 
 
-    public void ChooseRandomSoundWait()
+    /*public void ChooseRandomSoundWait()
     {
         randomSoundWait = (int)Random.Range(100, 150);
     }
@@ -176,5 +177,5 @@ public class Enemy : MonoBehaviour
             audioSource.clip = clip5;
         }
         audioSource.Play();
-    }
+    }*/
 }

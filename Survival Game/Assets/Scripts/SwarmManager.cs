@@ -54,7 +54,7 @@ public class SwarmManager : MonoBehaviour
         swarm.GetComponent<Swarm>().SetPlayerTransform(playerTransform);
         swarm.GetComponent<Swarm>().SetPosition(GetRandomSpawnPosition());
         swarm.GetComponent<Swarm>().SetSpeed(speed);
-        swarm.GetComponent<Swarm>().SetAudioManager(audioManager.GetComponent<AudioManager>());
+        swarm.GetComponent<Swarm>().InitializeAudio();
         swarm.GetComponent<Swarm>().SpawnEnemies();
     }
 }

@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Swarm : MonoBehaviour
 {
     private Transform playerTransform;
     private float speed;
+    private int curNumEnemies;
 
     public GameObject enemyPrefab;
     public int minNumEnemies = 4;
@@ -17,7 +19,8 @@ public class Swarm : MonoBehaviour
     public float offsetAverage = Mathf.PI;
     public float offsetRadius = Mathf.PI;
 
-    private AudioManager audioManager;
+    public AudioSource audioSource;
+    public AudioClip swarmMusic;
 
     // Start is called before the first frame update
     void Start()
@@ -46,14 +49,16 @@ public class Swarm : MonoBehaviour
     {
         speed = inputSpeed;
     }
-    public void SetAudioManager(AudioManager inputManager)
+    public void InitializeAudio()
     {
-        audioManager = inputManager;
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = swarmMusic;
+        audioSource.Play();
     }
     public void SpawnEnemies()
     {
-        int numEnemies = Random.Range(minNumEnemies, maxNumEnemies);
-        for(int i = 0; i < numEnemies; i++)
+        curNumEnemies = Random.Range(minNumEnemies, maxNumEnemies);
+        for(int i = 0; i < curNumEnemies; i++)
         {
             GameObject newEnemy = Instantiate(enemyPrefab);
             newEnemy.transform.SetParent(this.gameObject.transform);
@@ -64,7 +69,18 @@ public class Swarm : MonoBehaviour
             enemy.ComputeCoefficient();
             enemy.SetInitialPosition();
             enemy.SetPlayerTransform(playerTransform);
-            enemy.InitializeAudioClips(audioManager);
+            //enemy.InitializeAudioClips(audioManager);
+        }
+    }
+
+    public void RemoveEnemy()
+    {
+        curNumEnemies--;
+        audioSource.volume *= 0.75f;
+        if(curNumEnemies == 0)
+        {
+            audioSource.Stop();
+            Destroy(this.gameObject);
         }
     }
 }
