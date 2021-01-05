@@ -12,7 +12,7 @@ public class HealthManager : MonoBehaviour
 
     public Slider healthBar;
 
-    public static int health = 100;
+    public static int health = 200;
 
     // Start is called before the first frame update
     void Start()

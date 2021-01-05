@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86b4f1cc760c70446a9cefa82fb3e67c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupDistance: 1
+  pickupDistance: 2
 --- !u!54 &224594258489375871
 Rigidbody:
   m_ObjectHideFlags: 0

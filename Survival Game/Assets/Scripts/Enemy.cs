@@ -1,7 +1,9 @@
 ﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
+[RequireComponent(typeof(AudioSource))]
 public class Enemy : MonoBehaviour
 {
     // Moving sinusoidally relative to the swarm center in all 3 axes
@@ -23,6 +25,17 @@ public class Enemy : MonoBehaviour
     private Transform playerTransform;
 
     public GameObject pointPrefab;
+
+    public AudioClip clip1;
+    public AudioClip clip2;
+    public AudioClip clip3;
+    public AudioClip clip4;
+    public AudioClip clip5;
+
+    private AudioSource audioSource;
+
+    private int framesSinceLastSound = 0;
+    private int randomSoundWait = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +63,14 @@ public class Enemy : MonoBehaviour
         if(Vector3.Distance(transform.position, playerTransform.position) < 3)
         {
             HealthManager.health--;
+        }
+
+        framesSinceLastSound++;
+        if(framesSinceLastSound == randomSoundWait)
+        {
+            framesSinceLastSound = 0;
+            PlayRandomSound();
+            ChooseRandomSoundWait();
         }
     }
 
@@ -80,6 +101,15 @@ public class Enemy : MonoBehaviour
     public void SetPlayerTransform(Transform input)
     {
         playerTransform = input;
+    }
+    public void InitializeAudioClips(AudioManager audioManager)
+    {
+        audioSource = GetComponent<AudioSource>();
+        clip1 = audioManager.enemy1;
+        clip2 = audioManager.enemy2;
+        clip3 = audioManager.enemy3;
+        clip4 = audioManager.enemy4;
+        clip5 = audioManager.enemy5;
     }
 
     public static Vector3 MultiplyVectors(Vector3 a, Vector3 b)
@@ -117,4 +147,34 @@ public class Enemy : MonoBehaviour
         amplitude *= scaleFactor;
     }
 
+
+    public void ChooseRandomSoundWait()
+    {
+        randomSoundWait = (int)Random.Range(100, 150);
+    }
+    private void PlayRandomSound()
+    {
+        float rand = Random.Range(0, 5);
+        if(rand < 1)
+        {
+            audioSource.clip = clip1;
+        }
+        else if(rand < 2)
+        {
+            audioSource.clip = clip2;
+        }
+        else if (rand < 3)
+        {
+            audioSource.clip = clip3;
+        }
+        else if (rand < 4)
+        {
+            audioSource.clip = clip4;
+        }
+        else
+        {
+            audioSource.clip = clip5;
+        }
+        audioSource.Play();
+    }
 }

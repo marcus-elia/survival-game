@@ -103,7 +103,6 @@ public class ProjectileManager : MonoBehaviour
         newProj.transform.position = cameraTransform.position + cameraTransform.forward * playerRadius;
         newProj.GetComponent<Rigidbody>().velocity = forceVector;
         newProj.GetComponent<Rigidbody>().angularVelocity = RandomRotation();
-        Debug.Log(forceVector);
         if (thrownProjectiles.Count > maxNumThrownProjectiles)
         {
             Destroy(thrownProjectiles[0]);

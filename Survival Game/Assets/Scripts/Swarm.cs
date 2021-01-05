@@ -17,6 +17,8 @@ public class Swarm : MonoBehaviour
     public float offsetAverage = Mathf.PI;
     public float offsetRadius = Mathf.PI;
 
+    private AudioManager audioManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +46,10 @@ public class Swarm : MonoBehaviour
     {
         speed = inputSpeed;
     }
+    public void SetAudioManager(AudioManager inputManager)
+    {
+        audioManager = inputManager;
+    }
     public void SpawnEnemies()
     {
         int numEnemies = Random.Range(minNumEnemies, maxNumEnemies);
@@ -58,6 +64,7 @@ public class Swarm : MonoBehaviour
             enemy.ComputeCoefficient();
             enemy.SetInitialPosition();
             enemy.SetPlayerTransform(playerTransform);
+            enemy.InitializeAudioClips(audioManager);
         }
     }
 }

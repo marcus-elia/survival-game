@@ -16,6 +16,8 @@ public class SwarmManager : MonoBehaviour
     private float currentSpawnWait;
     private float lastSpawnTime;
 
+    public GameObject audioManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +54,7 @@ public class SwarmManager : MonoBehaviour
         swarm.GetComponent<Swarm>().SetPlayerTransform(playerTransform);
         swarm.GetComponent<Swarm>().SetPosition(GetRandomSpawnPosition());
         swarm.GetComponent<Swarm>().SetSpeed(speed);
+        swarm.GetComponent<Swarm>().SetAudioManager(audioManager.GetComponent<AudioManager>());
         swarm.GetComponent<Swarm>().SpawnEnemies();
     }
 }
